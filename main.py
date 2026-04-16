@@ -3,27 +3,24 @@ from flask_cors import CORS
 import requests
 import re
 from flask import send_from_directory
+import os 
 
 memory = []
 
 app = Flask(__name__)
 CORS(app) 
 
-@app.route("/")
-def home():
-    return send_from_directory("../frontend", "index.html")
-
 @app.route("/<path:path>")
 def static_files(path):
-    return send_from_directory("../frontend", path)
+    return send_from_directory(
+    os.path.join(os.getcwd(), "frontend"),
+    path
+)
 
 @app.route("/think", methods=["POST"])
 def think():
     data = request.json
     message = data.get("message", "").lower()
-
-from flask import send_from_directory
-import os
 
 @app.route("/")
 def index():
@@ -31,8 +28,6 @@ def index():
         os.path.join(os.getcwd(), "frontend"),
         "index.html"
     )
-
-
     # --- PING ---
     
     if "ping" in message:
