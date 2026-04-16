@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app) 
 
 @app.route("/")
-def index():
+def home():
     return send_from_directory("../frontend", "index.html")
 
 @app.route("/<path:path>")
@@ -22,9 +22,16 @@ def think():
     data = request.json
     message = data.get("message", "").lower()
 
+from flask import send_from_directory
+import os
+
 @app.route("/")
-def home():
-    return send_from_directory("../frontend", "index.html")
+def index():
+    return send_from_directory(
+        os.path.join(os.getcwd(), "frontend"),
+        "index.html"
+    )
+
 
     # --- PING ---
     
