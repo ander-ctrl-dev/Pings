@@ -10,6 +10,9 @@ memory = []
 app = Flask(__name__)
 CORS(app) 
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, "..", "frontend")
+
 @app.route("/")
 def index():
     return send_from_directory(FRONTEND_DIR, "index.html")
