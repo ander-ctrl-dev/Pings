@@ -10,24 +10,20 @@ memory = []
 app = Flask(__name__)
 CORS(app) 
 
+@app.route("/")
+def index():
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
 @app.route("/<path:path>")
 def static_files(path):
-    return send_from_directory(
-    os.path.join(os.getcwd(), "frontend"),
-    path
-)
+    return send_from_directory(FRONTEND_DIR, path)
+
 
 @app.route("/think", methods=["POST"])
 def think():
     data = request.json
     message = data.get("message", "").lower()
 
-@app.route("/")
-def index():
-    return send_from_directory(
-        os.path.join(os.getcwd(), "frontend"),
-        "index.html"
-    )
     # --- PING ---
     
     if "ping" in message:
