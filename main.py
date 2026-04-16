@@ -22,6 +22,10 @@ def think():
     data = request.json
     message = data.get("message", "").lower()
 
+@app.route("/")
+def home():
+    return send_from_directory("../frontend", "index.html")
+
     # --- PING ---
     
     if "ping" in message:
